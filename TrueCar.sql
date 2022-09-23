@@ -16,11 +16,22 @@ INNER JOIN TrueCar..Vehicles v
 ON l.Id = v.Id;
 
 -- Checking for null values in both tables (Vehicles & Listings)
-SELECT *
+SELECT	
+	SUM(CASE WHEN l.Id IS NULL THEN 1 ELSE 0 END) AS null_id1,
+	SUM(CASE WHEN Price IS NULL THEN 1 ELSE 0 END) AS null_price,
+	SUM(CASE WHEN Mileage IS NULL THEN 1 ELSE 0 END) AS null_city_state,
+	SUM(CASE WHEN Region IS NULL THEN 1 ELSE 0 END) AS null_region,
+	SUM(CASE WHEN city IS NULL THEN 1 ELSE 0 END) AS null_city,
+	SUM(CASE WHEN State IS NULL THEN 1 ELSE 0 END) AS null_state,
+	SUM(CASE WHEN v.Id IS NULL THEN 1 ELSE 0 END) AS null_id2,
+	SUM(CASE WHEN Year IS NULL THEN 1 ELSE 0 END) AS null_year,
+	SUM(CASE WHEN Vin IS NULL THEN 1 ELSE 0 END) AS null_vin,
+	SUM(CASE WHEN Make IS NULL THEN 1 ELSE 0 END) AS null_make,
+	SUM(CASE WHEN model IS NULL THEN 1 ELSE 0 END) AS null_model
 FROM TrueCar..Listings l
 INNER JOIN TrueCar..Vehicles v
-ON l.Id = v.Id
-WHERE coalesce(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) IS NULL; -- There is no null value
+ON l.Id = v.Id; 
+-- There is no null value
 
 
 -- Separate City & State into 2 columns (City column and State column)
